@@ -20,8 +20,7 @@ from config import (
     BITRIX_DEFAULT_CURRENCY,
     BITRIX_DEFAULT_CATEGORY_ID,
 )
-from bitrix_client import BitrixClient, BitrixError
-
+from .bitrix_client import BitrixClient, BitrixError
 
 logging.basicConfig(level=logging.INFO)
 
@@ -147,9 +146,8 @@ async def process_name(message: Message, state: FSMContext):
     name = normalize_text(message.text or "")
 
     if len(name) < 2:
-        await message.answer(
-            "Имя слишком короткое. Введите имя клиента еще раз."
-        )
+        await message.answer("Имя слишком короткое. Введите имя клиента еще"
+                             "раз.")
         return
 
     await state.update_data(name=name)
@@ -203,7 +201,8 @@ async def process_email(message: Message, state: FSMContext):
 
     await message.answer(
         "Что нужно клиенту?\n\n"
-        "Например: строительство дома, консультация, расчет стоимости, ремонт, аудит проекта."
+        "Например: строительство дома, консультация, расчет стоимости, ремонт,"
+        "аудит проекта."
     )
 
 
@@ -342,7 +341,8 @@ async def process_confirm(message: Message, state: FSMContext):
 @dp.message(DealForm.confirm)
 async def process_wrong_confirm(message: Message):
     await message.answer(
-        "Нажмите «Подтвердить», чтобы создать сделку, или «Отмена», чтобы отменить.",
+        "Нажмите «Подтвердить», чтобы создать сделку, или «Отмена», чтобы "
+        "отменить.",
         reply_markup=confirm_keyboard(),
     )
 
@@ -350,8 +350,8 @@ async def process_wrong_confirm(message: Message):
 @dp.message()
 async def unknown_message(message: Message):
     await message.answer(
-        "Я не понял команду.\n\n"
-        "Нажмите «Создать сделку» или отправьте /start.",
+        "Я не понял команду.\n\n" "Нажмите «Создать сделку» или отправьте "
+        "/start.",
         reply_markup=main_keyboard(),
     )
 
